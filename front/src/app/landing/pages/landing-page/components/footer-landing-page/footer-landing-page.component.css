@@ -1,0 +1,6 @@
+.line-gradient-top {
+  width: 2px;
+  background: linear-gradient(180deg, hsla(0, 0%, 100%, .05), hsla(0, 0%, 100%, .2));
+  border-radius: .75rem .75rem 0 0;
+  height: 10%;
+}

@@ -1,0 +1,50 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/orchestrator
+    username: invoo
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+        
+application:
+  confirm-account:
+    url: http://localhost:4200/confirm-account/
+  reset-password:
+        url: http://localhost:4200/reset-password/
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
+file:
+  upload-dir: "src/main/resources/invoice"
+
+api:
+  catalog:
+    service:
+      url: http://localhost:7070
+  invoice:
+    service:
+      url: http://localhost:7060
+  payment:
+    service:
+      url: http://localhost:7050
+  stripe:
+    service:
+      url: http://localhost:7055

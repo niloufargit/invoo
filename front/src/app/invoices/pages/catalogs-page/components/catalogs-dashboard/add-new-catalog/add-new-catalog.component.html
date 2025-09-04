@@ -1,0 +1,122 @@
+<div class="flex flex-col justify-center flex-wrap gap-3">
+  <div class="relative flex justify-between bg-white">
+    <h2 class="text-gray-800 text-xl font-semibold">Add Catalog</h2>
+
+    @if (store.createdCatalog() !== undefined) {
+      <div class="flex justify-center gap-5">
+        <button
+          type="button" (click)="confirmAllCatalog()"
+          class="w-40 h-10 align-middle select-none font-sans font-bold text-center transition-all text-sm  px-1 rounded-lg text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] cursor-pointer active:shadow-none bg-green-400 block gap-3 mt-6"
+          [disabled]= "store.isLoaded()"
+        >Confirm Catalog</button>
+
+        @if (store.isLoaded()) {
+          <!--Loading spinner-->
+          <div class="grid min-h-[10px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+            <div class="flex gap-8">
+              <svg class="w-10 h-10 text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+                   width="24" height="24">
+                <path
+                  d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+                  stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+                  stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                  class="text-green-500"></path>
+              </svg>
+            </div>
+          </div>
+        } @else {
+          <button
+            type="button" (click)="revokeCatalog()"
+            class="w-40 h-10 align-middle select-none font-sans font-bold text-center transition-all text-sm  px-1 rounded-lg text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] cursor-pointer active:shadow-none bg-red-400 block gap-3 mt-6"
+            [disabled] = "store.isLoaded()"
+          >Revoke Catalog</button>
+        }
+
+      </div>
+    }
+
+
+  </div>
+  <div class="">
+    <form [formGroup]="catalogForm" (ngSubmit)="onSubmit()"
+          class="w-full flex flex-row justify-center my-6 bg-white rounded-lg group">
+      <!-- Catalog name -->
+      <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-7">
+
+        <div class="md:col-span-2">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" formControlName="name"
+                 class="h-10 mt-1  w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" value="" />
+          @if (catalogForm.get('name')?.invalid && catalogForm.get('name')?.touched) {
+            <div class="text-red-500 text-sm">
+              This field is required.
+            </div>
+          }
+        </div>
+        <div class="md:col-span-2">
+          <label for="reference">Reference</label>
+          <input type="text" name="reference" id="reference" formControlName="reference"
+                 class="h-10 mt-1  w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" value="" />
+          @if (catalogForm.get('reference')?.invalid && catalogForm.get('reference')?.touched) {
+            <div class="text-red-500 text-sm">
+              This field is required.
+            </div>
+          }
+        </div>
+        <div class="md:col-span-2">
+          <label for="description">Description</label>
+          <input type="text" name="description" id="description" formControlName="description"
+                 class="h-10 mt-1  w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" value="" />
+          @if (catalogForm.get('description')?.invalid && catalogForm.get('description')?.touched) {
+            <div class="text-red-500 text-sm">
+              This field is required.
+            </div>
+          }
+        </div>
+
+        <!-- Actions -->
+        <div class="md:col-span-1 text-right">
+            @if (store.isLoaded()) {
+              <!--Loading spinner-->
+              <div class="grid min-h-[10px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+                <div class="flex gap-8">
+                  <svg class="w-10 h-10 text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+                       width="24" height="24">
+                    <path
+                      d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+                      stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path
+                      d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+                      stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      class="text-green-500"></path>
+                  </svg>
+                </div>
+              </div>
+            } @else if ((store.createdCatalog() === undefined)) {
+              <div class="col-span-5 flex justify-center">
+                <button
+                  type="submit"
+                  class="w-2/3 h-10 align-middle select-none font-sans font-bold text-center transition-all text-sm  px-1 rounded-lg text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] cursor-pointer active:shadow-none bg-gray-900 block gap-3 mt-6"
+                  [disabled]="catalogForm.invalid || store.isLoaded()"
+                >Create</button>
+              </div>
+            } @else {
+              <!--Edit catalog-->
+              <div class="col-span-5 flex justify-center">
+                <button
+                  type="button" (click)="updateCatalog()"
+                  class="w-2/3 h-10 align-middle select-none font-sans font-bold text-center transition-all text-sm  px-1 rounded-lg text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] cursor-pointer active:shadow-none bg-gray-900 block gap-3 mt-6"
+                  [disabled]="catalogForm.invalid || store.isLoaded()"
+                >Edit</button>
+              </div>
+            }
+        </div>
+      </div>
+    </form>
+  </div>
+  @if (store.createdCatalog() !== undefined) {
+    <app-add-new-product/>
+  }
+</div>

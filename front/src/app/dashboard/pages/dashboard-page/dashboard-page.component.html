@@ -1,0 +1,32 @@
+<app-page-template title="Dashboard" subtitle="Analyse your requests and sales data">
+  <div class=""></div>
+  <div class="flex flex-wrap gap-4 w-full">
+    <div class="flex-1 min-w-[calc(33%-1rem)] max-w-[33%]">
+      <app-display-request-payment-page></app-display-request-payment-page>
+    </div>
+    <div class="flex-1 min-w-[calc(33%-1rem)] max-w-[33%]">
+      <app-display-request-payment-page></app-display-request-payment-page>
+    </div>
+    <div class="flex-1 min-w-[calc(33%-1rem)] max-w-[33%]">
+      <app-display-request-payment-page></app-display-request-payment-page>
+    </div>
+    <div class="flex-1 min-w-[calc(60%-1rem)] max-w-[60%]">
+      <app-line-chart
+        [title]="'Sales Data'"
+        [description]="'Monthly sales data visualization.'">
+      </app-line-chart>
+    </div>
+
+    <div class="flex-1 min-w-[calc(40%-1rem)] max-w-[40%]">
+      <app-products-charts></app-products-charts>
+    </div>
+
+
+    <div class="flex-1 min-w-[calc(40%-1rem)] max-w-[40%]">
+      <app-pie-charts></app-pie-charts>
+    </div>
+
+
+  </div>
+</app-page-template>
+

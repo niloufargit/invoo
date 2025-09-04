@@ -1,0 +1,13 @@
+<div class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-row gap-4 items-center justify-between">
+  <div class="flex items-center gap-4">
+    <input class="custom-checkbox w-5 h-5" type="checkbox">
+    <p class="text-base font-medium text-gray-800">{{ product?.name }}</p>
+  </div>
+  <p class="hidden sm:block text-sm text-gray-600">{{ product?.description }}</p>
+  <div class="product-section flex items-center gap-4">
+    <p class="text-gray-800 font-semibold">{{ product?.htPrice }}€</p>
+  </div>
+  <div class="product-section flex items-center gap-4">
+    <p class="text-gray-800 font-semibold">{{ product?.vatRate }}</p>
+  </div>
+</div>

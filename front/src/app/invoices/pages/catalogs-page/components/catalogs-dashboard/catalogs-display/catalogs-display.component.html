@@ -1,0 +1,100 @@
+
+
+
+<section class="px-8 py-10">
+  <div class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 border border-gray-300">
+    <div class="relative bg-clip-border mt-4 mx-4 rounded-xl overflow-hidden bg-white text-gray-700 flex overflow-visible gap-y-4 flex-wrap items-start justify-between rounded-none">
+      <div>
+        <div class="flex flex-row justify-center items-center gap-x-3" >
+          <svg class="inline-block relative object-cover object-center  w-10 h-10"
+               xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+               fill="#000000" stroke="none">
+              <path d="M368 5061 c-147 -47 -269 -172 -312 -320 -14 -48 -16 -142 -16 -742 0 -646 1 -691 19 -748 49 -157 191 -288 348 -321 31 -7 294 -10 748 -8 l700 3 58 23 c126 51 231 159 279 287 22 60 23 63 26 725 2 460 0 685 -8 730 -31 180 -168 329 -345 376 -40 11 -195 14 -745 13 -643 0 -699 -1 -752 -18z m1422 -356 c63 -33 60 4 60 -705 0 -581 -2 -648 -16 -669 -36 -51 -37 -51 -710 -51 -564 0 -629 2 -661 17 -64 30 -63 15 -63 703 0 688 -1 678 62 705 50 22 1286 22 1328 0z"/> <path d="M3790 5061 c-219 -49 -385 -136 -533 -280 -178 -173 -279 -363 -322 -605 -90 -517 222 -1034 725 -1200 139 -46 244 -60 394 -53 276 13 502 113 702 312 150 148 236 293 290 487 32 116 43 326 24 445 -67 422 -376 765 -790 879 -132 36 -364 43 -490 15z m385 -366 c201 -52 373 -192 465 -380 55 -111 74 -190 74 -315 1 -131 -13 -188 -75 -318 -43 -88 -62 -115 -132 -185 -66 -67 -100 -91 -177 -130 -122 -61 -199 -80 -325 -80 -122 0 -213 21 -320 73 -186 90 -331 270 -380 472 -20 87 -21 245 0 334 88 382 490 626 870 529z"/> <path d="M380 2181 c-153 -49 -255 -148 -311 -301 l-24 -65 0 -695 c0 -653 1 -698 19 -750 52 -153 164 -264 314 -310 61 -19 94 -20 756 -20 745 0 737 0 841 52 55 29 150 122 184 182 62 109 61 93 61 847 0 646 -1 691 -19 748 -48 154 -187 285 -342 320 -28 7 -303 10 -734 10 -633 0 -695 -2 -745 -18z m1416 -356 c65 -27 64 -13 64 -710 0 -695 2 -673 -65 -701 -52 -22 -1283 -21 -1325 1 -63 33 -60 -4 -60 705 0 714 -3 676 64 706 48 21 1272 20 1322 -1z"/> <path d="M3240 2181 c-150 -48 -256 -150 -313 -299 -21 -56 -22 -67 -25 -722 -2 -459 0 -685 8 -730 31 -179 159 -320 339 -374 48 -14 139 -16 746 -16 744 0 736 0 840 52 55 29 150 122 184 182 62 109 61 93 61 847 0 646 -1 691 -19 748 -48 154 -187 285 -342 320 -28 7 -303 10 -734 10 -633 0 -695 -2 -745 -18z m1415 -357 c67 -31 65 -14 65 -703 0 -682 1 -675 -59 -706 -27 -14 -103 -15 -682 -13 l-651 3 -29 33 -29 32 0 649 c0 640 0 649 21 675 11 14 35 30 52 35 18 5 308 10 655 10 549 1 628 -1 657 -15z"/> </g>
+          </svg>
+
+          <div>
+            <h1 class="block antialiased tracking-normal font-sans text-5xl font-semibold leading-tight text-blue-gray-900 !text-2xl mb-1">
+              Catalogs list
+            </h1>
+            <p class="block antialiased font-sans text-base font-light leading-relaxed text-blue-gray-900 !text-lg font-normal text-gray-600">
+              Below the list of catalogs.
+            </p>
+          </div>
+        </div>
+      </div>
+      @if (store.selectedCompany()?.id) {
+        <div class="flex shrink-0 gap-2">
+          <button (click)="addNewCatalog()"
+                  class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg border border-gray-900 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] cursor-pointer group hover:border-blue-500 hover:shadow-lg hover:bg-blue-50"
+                  type="button"
+                  data-ripple-dark="true"
+          >
+            Add new catalog
+          </button>
+        </div>
+      }
+
+    </div>
+    <div class="p-6 grid xl:grid-cols-3 grid-cols-1 gap-4 px-4">
+
+      @if ( !store.catalogs()?.length) {
+        <div class="col-span-8 flex items-center justify-center">
+          <p class="block antialiased font-sans text-base font-light leading-relaxed text-blue-gray-900 !text-base !font-semibold mb-1">
+            No catalogs found.
+          </p>
+        </div>
+      }
+
+      @for (cat of store.catalogs(); track cat.id) {
+
+        <div class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md border border-gray-300 overflow-hidden shadow-sm">
+          <div class="p-6">
+            <p class="block antialiased font-sans text-base font-light leading-relaxed text-blue-gray-900 !text-base !font-semibold mb-1">
+              {{ cat.name }}
+            </p>
+            <div class="my-4 flex items-start justify-between">
+              <div class="flex items-center gap-3">
+
+                <svg class="inline-block relative object-cover object-center !rounded-full w-10 h-18 rounded-lg"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                  <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                     fill="#000000" stroke="none"><path d="M500 5105 c-343 -77 -566 -434 -480 -769 33 -128 74 -200 170 -296 139 -140 282 -196 475 -188 116 6 212 35 308 94 l59 37 314 -314 c298 -298 314 -316 314 -351 0 -46 40 -83 81 -74 22 4 38 -8 112 -82 48 -48 87 -90 87 -94 0 -4 -18 -32 -39 -63 -86 -122 -134 -283 -134 -445 0 -162 48 -323 134 -445 21 -31 39 -59 39 -63 0 -4 -328 -335 -729 -736 l-728 -728 -57 21 c-152 57 -321 -11 -393 -157 -37 -75 -40 -191 -6 -263 30 -66 86 -124 151 -156 48 -24 70 -28 137 -28 67 0 89 4 137 28 144 71 213 239 158 388 l-22 62 590 590 590 590 43 -36 c51 -44 94 -49 127 -14 35 37 29 74 -20 119 l-42 39 84 84 c47 47 88 85 92 85 4 0 30 -16 56 -35 27 -19 78 -48 113 -65 62 -29 203 -70 241 -70 17 0 18 -16 18 -333 l0 -334 -42 -12 c-104 -30 -207 -130 -248 -238 -26 -70 -29 -184 -7 -256 72 -230 340 -343 557 -232 219 111 282 402 129 595 -45 57 -124 113 -186 131 l-43 12 0 134 0 133 38 0 c111 2 181 43 167 99 -12 51 -40 64 -127 56 l-78 -7 0 124 0 123 78 17 c195 40 359 143 478 301 25 34 50 61 54 60 4 -1 55 -25 114 -52 l107 -50 -18 -28 c-9 -15 -34 -51 -55 -79 -45 -60 -48 -95 -13 -129 49 -50 84 -33 161 80 32 47 61 85 64 85 4 0 101 -45 215 -100 205 -99 207 -101 200 -128 -16 -67 -17 -208 -1 -270 59 -233 235 -389 477 -425 99 -14 212 7 316 58 205 101 329 341 296 571 -13 91 -36 128 -83 132 -23 3 -39 -3 -57 -20 -22 -20 -24 -29 -18 -68 15 -110 17 -151 6 -199 -45 -212 -253 -357 -459 -321 -153 26 -277 133 -322 276 -61 198 29 400 216 489 108 52 268 45 370 -16 40 -24 65 -24 98 2 34 27 36 77 4 106 -62 56 -183 93 -308 93 -154 0 -285 -57 -396 -171 l-67 -70 -46 20 c-49 21 -734 351 -738 355 -2 1 6 38 18 82 27 102 29 270 6 367 -24 95 -71 205 -118 272 -21 31 -39 59 -39 63 0 4 39 46 86 92 l86 85 26 -35 c73 -95 112 -111 157 -65 37 36 31 66 -26 141 l-51 67 200 200 200 200 64 -29 c56 -26 74 -29 163 -29 88 0 107 3 158 27 164 77 259 255 228 425 -31 168 -149 288 -316 323 -170 35 -347 -55 -427 -218 -31 -62 -33 -74 -33 -167 0 -89 3 -107 29 -163 l29 -63 -339 -340 c-186 -186 -342 -339 -346 -339 -4 0 -32 18 -63 39 -122 86 -283 134 -445 134 -162 0 -323 -48 -445 -134 -31 -21 -59 -39 -63 -39 -4 0 -45 38 -91 84 -82 82 -83 84 -67 107 37 53 6 119 -56 119 -17 0 -40 -8 -50 -17 -18 -16 -32 -4 -335 299 l-316 316 37 59 c76 123 110 282 91 428 -11 95 -81 138 -133 82 -21 -22 -22 -30 -16 -123 8 -116 -8 -192 -58 -286 -36 -68 -128 -157 -199 -193 -297 -151 -649 29 -701 358 -15 97 -1 185 45 281 42 87 89 142 162 190 89 59 155 79 270 79 119 1 185 -19 286 -88 75 -51 100 -55 134 -20 37 36 32 71 -14 115 -122 117 -360 176 -541 135z m3659 -791 c70 -20 135 -85 156 -157 19 -63 19 -81 0 -145 -52 -174 -271 -229 -402 -100 -135 132 -71 364 112 409 48 11 78 10 134 -7z m-1444 -1129 c234 -61 411 -239 471 -475 24 -96 16 -272 -18 -362 -71 -189 -205 -323 -396 -396 -60 -24 -81 -26 -207 -27 -121 0 -149 3 -206 23 -187 64 -337 211 -407 400 -34 90 -42 266 -18 362 59 233 236 413 466 474 74 20 240 20 315 1z m-68 -2240 c96 -40 154 -124 154 -224 1 -142 -100 -245 -241 -245 -74 0 -125 22 -177 76 -82 85 -86 222 -8 324 55 72 186 105 272 69z m-2252 -488 c47 -27 85 -88 85 -137 0 -20 -10 -56 -22 -80 -59 -117 -235 -115 -289 4 -25 54 -24 92 4 146 41 83 140 113 222 67z"/> <path d="M2516 3736 c-33 -32 -34 -75 -3 -103 18 -17 41 -23 118 -28 106 -8 134 0 149 41 12 31 -2 68 -32 88 -13 8 -63 17 -115 21 -90 7 -93 6 -117 -19z"/> <path d="M2153 3686 c-82 -31 -109 -49 -117 -81 -8 -31 12 -68 45 -86 17 -9 38 -5 112 21 51 18 100 42 110 52 23 27 22 73 -3 98 -26 26 -69 25 -147 -4z"/> <path d="M2973 3645 c-26 -18 -36 -56 -24 -88 10 -26 167 -117 201 -117 33 0 70 39 70 74 0 41 -24 64 -113 110 -75 39 -102 44 -134 21z"/> <path d="M1508 3111 c-25 -20 -88 -163 -88 -201 0 -28 44 -70 73 -70 39 0 63 29 102 124 40 99 38 132 -11 155 -35 15 -48 14 -76 -8z"/> <path d="M3571 2954 c-26 -33 -26 -30 4 -139 30 -115 56 -139 120 -115 43 17 49 52 24 154 -12 49 -30 97 -40 107 -29 29 -83 25 -108 -7z"/> <path d="M1403 2668 c-36 -17 -47 -59 -39 -156 5 -77 9 -90 32 -109 40 -36 85 -29 108 16 10 19 12 53 8 124 -4 89 -7 99 -30 117 -27 22 -46 24 -79 8z"/> <path d="M3625 2500 c-20 -22 -59 -222 -50 -258 6 -26 57 -52 87 -44 34 8 56 51 72 140 9 48 16 99 16 113 0 57 -86 92 -125 49z"/> <path d="M1465 2195 c-14 -13 -25 -33 -25 -44 0 -28 64 -165 89 -190 44 -44 121 -16 121 44 0 41 -65 180 -93 200 -31 22 -65 18 -92 -10z"/> <path d="M3100 1665 c-41 -25 -81 -53 -87 -62 -33 -44 5 -113 61 -113 28 0 131 55 174 93 31 28 31 90 0 111 -36 25 -68 19 -148 -29z"/> <path d="M2111 1554 c-24 -31 -26 -43 -9 -78 12 -27 64 -51 166 -77 48 -12 54 -11 80 8 37 27 42 81 10 109 -24 22 -158 64 -201 64 -16 0 -34 -10 -46 -26z"/> </g>
+                </svg>
+
+                <div>
+                  <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-blue-gray-900">
+                    Categories
+                  </h6>
+
+                  @for ( ct of cat.categories; track ct.id) {
+                    @if ($index < 3) {
+                      <p class="block antialiased font-sans text-sm font-light leading-normal text-gray-700 font-medium">
+                        {{ ct.name }}
+                      </p>
+                    }
+                    @if ($index > 3 && $last) {
+                      <p class="block antialiased font-bold leading-normal text-gray-700 ">
+                        . . . . . .
+                      </p>
+                    }
+
+                  }
+                </div>
+              </div>
+              <button (click)="showCatalog(cat)"
+                class="align-middle select-none cursor-pointer font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg border border-gray-900 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] border-gray-300 hover:border-blue-500 hover:shadow-lg hover:bg-blue-50"
+                      type="button"
+                      data-ripple-dark="true"
+              >
+                see catalog
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+

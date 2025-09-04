@@ -1,0 +1,34 @@
+<div class="flex flex-col gap-6">
+  <hr class="w-full border-gray-200" />
+  <table class="w-full border-collapse divide-y divide-slate-200">
+    <thead>
+    <tr class="text-gray-400 text-left">
+      <th class="py-2 px-4">Recipient Name</th>
+      <th class="py-2 px-4">Recipient Email</th>
+      <th class="py-2 px-4">Total Amount</th>
+      <th class="py-2 px-4">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (paymentRequest of (store.paymentRequests() ?? []); track paymentRequest.paymentRequestId) {
+        <tr class="hover:bg-slate-100">
+          <td class="py-3 px-4 text-slate-800 font-semibold">
+            {{ paymentRequest.recipientName }}
+          </td>
+          <td class="py-3 px-4 text-slate-600 text-sm">
+            {{ paymentRequest.recipientEmail }}
+          </td>
+          <td class="py-3 px-4 text-slate-600 font-medium">
+            {{ paymentRequest.amount + ' ' + '€'}}
+          </td>
+          <td class="py-3 px-4">
+            <div class="rounded-md w-1/3 flex justify-center items-center py-0.5 px-2.5 border border-transparent text-sm text-white transition-all shadow-sm"
+                 [ngClass]="paymentRequest.status === 'PAID' ? 'bg-green-600' : 'bg-slate-800'">
+              {{ paymentRequest.status }}
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,120 @@
+<div class="flex flex-col gap-6">
+  <div class="w-full flex justify-between">
+    <div class="flex gap-4 items-center">
+      <h2 class="text-lg font-semibold">All Beneficiaries</h2>
+    </div>
+    <div class="flex items-center justify-center gap-4">
+      @if(store.beneficiaries()){
+        <div class="relative">
+          <input [(ngModel)]="searchKeyList"
+                 class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                 placeholder="name..."
+          />
+          <button
+            class="absolute cursor-pointer top-1 right-1 flex items-center rounded bg-slate-800 py-1 px-2.5 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2">
+              <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+            </svg>
+            Search
+          </button>
+        </div>
+      } @else {
+        <button (click)="toggleBeneficiaryModal()"
+                class="border-slate-800 rounded cursor-pointer hover:bg-slate-100 border p-2 w-min h-min">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </button>
+      }
+
+    </div>
+  </div>
+
+  <div class="w-full flex flex-col gap-4">
+    @if(store.beneficiaries()){
+      <div class=" p-2 border-b border-b-slate-700 flex justify-between items-center">
+        <p>Beneficiary Name</p>
+        <p>SIREN number</p>
+        <p>Email</p>
+        <p>Phone number</p>
+        <p>Country</p>
+        <button (click)="toggleBeneficiaryModal()"
+          class="border-slate-800 rounded cursor-pointer hover:bg-slate-100 border p-2 w-min h-min">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </button>
+      </div>
+    } @else {
+      <div class="w-full justify-center items-center flex flex-col gap-4">
+        <h2 class="text-lg font-semibold">No Beneficiaries</h2>
+        <p class="text-gray-500 text-sm">You have no beneficiaries yet.</p>
+      </div>
+    }
+  </div>
+</div>
+@if (isOpenBeneficiaryModal){
+  <app-modal [isOpen]="isOpenBeneficiaryModal">
+    <div class="w-full h-full flex justify-center items-center">
+      <app-card-component class="w-3xl" customClass="rounded-lg p-8 flex-col container mx-auto">
+        <button class="self-end bg-white cursor-pointer w-min " (click)="toggleBeneficiaryModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="18" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+        </button>
+        <h2>Add beneficiary</h2>
+        <div class="relative flex">
+          <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3.5">
+            <svg class="shrink-0 size-4 text-gray-400 dark:text-white/60" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+          </div>
+          <input
+            [(ngModel)]="searchKeyModal"
+            type="text"
+            class="py-2.5 ps-10 pe-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500"
+            placeholder="Type a name"
+          />
+          <button (click)="searchProfessionalBeneficiary()"
+            class="align-middle select-none cursor-pointer mx-2 font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg border border-gray-900 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] border-gray-300 hover:border-blue-500 hover:shadow-lg hover:bg-blue-50"
+            type="button"
+          >
+            Search
+          </button>
+
+        </div>
+        <div class="w-full mt-5 relative">
+
+          <div class="flex w-full items-center rounded-2xl bg-gray-200  py-2 px-4 text-sm text-gray-800 dark:hover:bg-neutral-700">
+            <div class="flex justify-between gap-x-3 w-full font-semibold">
+              <p class="w-1/3">Company name</p>
+              <p>SIREN Number</p>
+              <p>Action</p>
+            </div>
+          </div>
+
+          @for (item of searchedBeneficiary(); track $index){
+            <div class="flex w-full items-center  py-2 px-4 text-sm text-gray-800 dark:hover:bg-neutral-700">
+              <div class="flex justify-between gap-x-3 w-full text-lg">
+                <div class="w-1/3">{{ item?.name }}</div>
+                <div>{{ item?.sirenNumber }}</div>
+                @if (!this.store.ifBeneficiaryExists(item?.idCompany)) {
+                  <button  (click)="addBeneficiary(item)"
+                           class="block font-sans text-sm antialiased cursor-pointer font-medium leading-normal text-blue-gray-900">
+                    Add
+                  </button>
+                } @else {
+                  <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                    Added
+                  </p>
+                }
+
+              </div>
+            </div>
+          }
+        </div>
+      </app-card-component>
+    </div>
+  </app-modal>
+}

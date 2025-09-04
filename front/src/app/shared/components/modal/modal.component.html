@@ -1,0 +1,12 @@
+<div class="flex justify-center">
+  <div
+    class="fixed inset-0 bg-slate-950/50 flex transition-opacity duration-300 ease-out z-[9999]"
+    [class.opacity-0]="!isOpen"
+    [class.pointer-events-none]="!isOpen"
+    aria-hidden="true"
+  >
+    <div (click)="$event.stopPropagation()" class="w-full h-full">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

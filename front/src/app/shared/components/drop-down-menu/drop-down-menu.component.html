@@ -1,0 +1,47 @@
+<div class="relative inline-block text-left dropdown-container">
+  <button
+    type="button"
+    (click)="toggleDropdown()"
+    class="rounded-md whitespace-nowrap bg-white py-2 px-4 border border-gray-300 text-center text-sm text-gray-700 transition-all hover:shadow-sm active:shadow-sm focus:outline-none flex items-center gap-2"
+  >
+      {{ label }}
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clip-rule="evenodd" />
+    </svg>
+  </button>
+  @if(isOpen){
+    <ul
+      role="menu"
+      class="absolute z-10 rounded border border-t-0 border-gray-300 bg-white p-1 shadow-sm focus:outline-none"
+    >
+      @for (option of options; track $index) {
+          @if (optionKey) {
+            <li
+              role="menuitem"
+              class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+              (click)="selectOption(option)"
+            >
+              {{ option[optionKey] }}
+              @if (selectedOption === option[optionKey]) {
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+              }
+            </li>
+          }
+          @else {
+            <li
+              role="menuitem"
+              class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+              (click)="selectOption(option)"
+            >
+              {{ option }}
+              @if (selectedOption === option) {
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+              }
+            </li>
+          }
+      }
+    </ul>
+  }
+</div>

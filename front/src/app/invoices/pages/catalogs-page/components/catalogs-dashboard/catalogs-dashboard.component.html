@@ -1,0 +1,33 @@
+<app-page-template title="Catalogs" subtitle="Browse and manage your catalogs below.">
+  <section class="grid ">
+    <div class="w-2xs">
+      <div class="relative right-0">
+        <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100" >
+          <li class="z-30 flex-auto text-center">
+            <div [routerLink]="'/catalogs'"
+               [routerLinkActive]='"bg-slate-300 text-red-500"'
+               class="hover:bg-slate-300 z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
+            >
+              Dashboard
+            </div>
+          </li>
+          <li class="z-30 flex-auto text-center">
+            <a class="hover:bg-slate-300 z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-600 bg-inherit"
+            >
+              Manage Catalogs
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class=" relative rounded-lg">
+      <div class="flex flex-col">
+        @if (router.url === '/catalogs') {
+          <app-catalogs-display/>
+        }
+        <router-outlet/>
+      </div>
+    </div>
+  </section>
+</app-page-template>

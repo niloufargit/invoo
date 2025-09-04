@@ -1,0 +1,15 @@
+.bg-slate-300 {
+  background-color: #fff; /* Couleur pour l'onglet actif */
+}
+
+.text-slate-800 {
+  color: #1e293b; /* Couleur du texte pour l'onglet actif */
+}
+.ease-in-out {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.custom-modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

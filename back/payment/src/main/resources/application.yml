@@ -1,0 +1,30 @@
+server:
+  port: 7050
+spring:
+  application:
+    name: payment
+  datasource:
+    url: jdbc:postgresql://localhost:5434/payment
+    username: invoo
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+api:
+  stripe:
+    service:
+      url: http://localhost:7055

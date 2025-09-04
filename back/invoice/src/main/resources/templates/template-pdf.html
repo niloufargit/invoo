@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        .invoiceDTO-box {
+            width: 600px;
+            height: auto;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoiceDTO-box table {
+            width: 100%;
+            height: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoiceDTO-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoiceDTO-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoiceDTO-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoiceDTO-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoiceDTO-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoiceDTO-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoiceDTO-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoiceDTO-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoiceDTO-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoiceDTO-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="invoiceDTO-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <span th:text="${invoiceDTO.invoiceTitle}" style="width:100%; max-width:300px;"></span>
+                        </td>
+                        <td>
+                            Invoice #: <span th:text="${invoiceDTO.invoiceNumber}"></span><br>
+                            Created: <span th:text="${invoiceDTO.invoiceDate}"></span><br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <span th:text="${invoiceDTO.company.name}"></span><br>
+                            <span th:text="${invoiceDTO.company.address.streetNumber}"></span> <span th:text="${invoiceDTO.company.address.street}"></span><br>
+                            <span th:text="${invoiceDTO.company.address.city}"></span>, <span th:text="${invoiceDTO.company.address.zipCode}"></span><br>
+                            <span th:text="${invoiceDTO.company.address.country}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${invoiceDTO.beneficiary.name}"></span><br>
+                            <span th:text="${invoiceDTO.beneficiary.address.streetNumber}"></span> <span th:text="${invoiceDTO.beneficiary.address.street}"></span>
+                            <span th:text="${invoiceDTO.beneficiary.address.city}"></span>, <span th:text="${invoiceDTO.beneficiary.address.zipCode}"></span><br>
+                            <span th:text="${invoiceDTO.beneficiary.address.country}"></span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="heading">
+            <td>
+                Payment Method
+            </td>
+            <td>
+                Check #
+            </td>
+        </tr>
+        <tr class="heading">
+            <td>
+                Item
+            </td>
+            <td>
+                Price
+            </td>
+        </tr>
+        <tr th:each="product : ${invoiceDTO.products}">
+            <td>
+                <span th:text="${product.name}"></span>
+            </td>
+            <td>
+                <span th:text="${product.quantity}"></span>
+            </td>
+            <td>
+                <span th:text="${product.htPrice}"></span>
+            </td>
+            <td>
+                <span th:text="${product.vatRate}"></span>
+            </td>
+
+        </tr>
+        <tr class="total">
+            <td>
+                Total: <span th:text="${invoiceDTO.price.totalExcludingTax}"></span>
+            </td>            <td>
+                Total: <span th:text="${invoiceDTO.price.totalIncludingTax}"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

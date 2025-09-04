@@ -1,0 +1,13 @@
+<div
+  role="button"
+  class="flex items-center cursor-pointer w-full p-3 leading-tight transition-all rounded-lg outline-none text-start"
+  [ngClass]="colorClass"
+  [routerLink]="route"
+  [routerLinkActive]='"bg-gray-100 text-gray-900"'
+  [routerLinkActiveOptions]="{ exact: true }"
+>
+  <div class="grid mr-4 place-items-center">
+    <ng-content></ng-content>
+  </div>
+  {{ title }}
+</div>

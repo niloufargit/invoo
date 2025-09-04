@@ -1,0 +1,48 @@
+<div class="relative flex flex-col bg-white shadow-sm border border-slate-200 rounded-lg w-full">
+  <div class="p-4">
+    <div class="mb-4 flex items-center gap-4 justify-between">
+      <h5 class="text-slate-800 text-lg font-semibold">
+        Latest payment requests
+      </h5>
+      <a
+        routerLink="/transactions"
+        class="text-slate-600"
+      >
+        View all
+      </a>
+    </div>
+    @if (store.paymentRequests() === undefined) {
+      <div class="text-center text-slate-600 py-4">
+        No payment requests found.
+      </div>
+
+    } @else {
+
+    <div class="divide-y divide-slate-200">
+      @for (paymentRequest of (store.paymentRequests() ?? []).slice(-4); track paymentRequest.paymentRequestId) {
+
+        <div class="flex items-center justify-between pb-3 pt-3 last:pb-0">
+        <div class="flex items-center gap-x-3">
+          <div class="rounded-md py-0.5 px-2.5 border border-transparent text-sm text-white transition-all shadow-sm"
+               [ngClass]="paymentRequest.status === 'PAID' ? 'bg-green-600' : 'bg-slate-800'">
+            {{ paymentRequest.status }}
+          </div>
+          <div>
+            <h6 class="text-slate-800 font-semibold">
+              {{ paymentRequest.recipientName }}
+            </h6>
+            <p class="text-slate-600 text-sm">
+              {{ paymentRequest.recipientEmail }}
+            </p>
+          </div>
+        </div>
+        <h6 class="text-slate-600 font-medium">
+          {{ paymentRequest.amount }}
+
+        </h6>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>

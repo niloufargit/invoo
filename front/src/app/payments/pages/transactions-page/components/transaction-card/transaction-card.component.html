@@ -1,0 +1,11 @@
+//TODO
+<!--revoir l'implémentation-->
+@for (paymentRequest of store.paymentRequests() || []; track $index) {
+    <div class="flex justify-between items-center">
+      <p>{{ paymentRequest.invoiceName }}</p>
+      <p>{{ paymentRequest.recipientName}}</p>
+      <p>{{ paymentRequest.recipientEmail }}</p>
+      <p>{{ paymentRequest.amount }}</p>
+      <p>{{ paymentRequest.status }}</p>
+    </div>
+  }

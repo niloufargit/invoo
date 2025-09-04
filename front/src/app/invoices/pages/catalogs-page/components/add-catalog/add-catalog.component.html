@@ -1,0 +1,47 @@
+<div class="bg-white p-6 rounded w-full max-w-md mx-auto shadow-lg">
+  <h2 class="text-gray-800 text-xl font-semibold mb-4">Add Catalog</h2>
+
+  <form [formGroup]="catalogForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+    <!-- Catalog name -->
+    <div class="w-4/5 mx-auto">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Catalog name</label>
+      <input
+        type="text"
+        formControlName="name"
+        required
+        class="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+      />
+      <p *ngIf="catalogForm.get('name')?.invalid && catalogForm.get('name')?.touched" class="text-sm text-red-600 mt-1">
+        Le nom du catalogue est requis.
+      </p>
+    </div>
+
+    <!-- Description -->
+    <div class="w-4/5 mx-auto">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+      <textarea
+        name="description"
+        formControlName ="description"
+        required
+        rows="3"
+        class="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none"
+      ></textarea>
+      <p *ngIf="catalogForm.get('description')?.invalid && catalogForm.get('description')?.touched" class="text-sm text-red-600 mt-1">
+        La description est requise.
+      </p>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-between items-center w-4/5 mx-auto mt-4">
+      <button
+        type="submit"
+        [disabled]="catalogForm.invalid" (click)="onClick()"
+        class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded shadow disabled:opacity-50 transition"
+      >
+        Add
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,52 @@
+<div class="w-full flex justify-between">
+  <div class="flex flex-col gap-4">
+    <h1>{{ store.selectedCompany()?.name }}</h1>
+    <div>
+      <p>{{ store.selectedCompany()?.address?.street }}</p>
+      <p>{{ store.selectedCompany()?.address?.city }}  {{ store.selectedCompany()?.address?.zipCode }}</p>
+      <p>{{ store.selectedCompany()?.address?.country }}</p>
+    </div>
+  </div>
+  <div class="flex flex-col gap-4">
+    @if(store.invoiceBeneficiary()){
+      <div class="flex gap-4 items-center">
+        <h1>{{ store.invoiceBeneficiary()?.name }}</h1>
+        <button (click)="toggleBeneficiaryModal()" class="border-slate-800 rounded cursor-pointer hover:bg-slate-100 border p-2 w-min h-min">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512">
+            <path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>
+        </button>
+        <button (click)="this.store.removeInvoiceBeneficiary()" class="border-[#ff2929] rounded cursor-pointer hover:bg-red-100 border p-2 w-min h-min">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0,0,256,256">
+            <g fill="#ff2929" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M21,0c-1.64453,0 -3,1.35547 -3,3v2h-7.8125c-0.125,-0.02344 -0.25,-0.02344 -0.375,0h-1.8125c-0.03125,0 -0.0625,0 -0.09375,0c-0.55078,0.02734 -0.98047,0.49609 -0.95312,1.04688c0.02734,0.55078 0.49609,0.98047 1.04688,0.95313h1.09375l3.59375,40.5c0.125,1.39844 1.31641,2.5 2.71875,2.5h19.1875c1.40234,0 2.59375,-1.10156 2.71875,-2.5l3.59375,-40.5h1.09375c0.35938,0.00391 0.69531,-0.18359 0.87891,-0.49609c0.17969,-0.3125 0.17969,-0.69531 0,-1.00781c-0.18359,-0.3125 -0.51953,-0.5 -0.87891,-0.49609h-10v-2c0,-1.64453 -1.35547,-3 -3,-3zM21,2h8c0.5625,0 1,0.4375 1,1v2h-10v-2c0,-0.5625 0.4375,-1 1,-1zM11.09375,7h27.8125l-3.59375,40.34375c-0.03125,0.34766 -0.40234,0.65625 -0.71875,0.65625h-19.1875c-0.31641,0 -0.6875,-0.30859 -0.71875,-0.65625zM18.90625,9.96875c-0.04297,0.00781 -0.08594,0.01953 -0.125,0.03125c-0.46484,0.10547 -0.79297,0.52344 -0.78125,1v33c-0.00391,0.35938 0.18359,0.69531 0.49609,0.87891c0.3125,0.17969 0.69531,0.17969 1.00781,0c0.3125,-0.18359 0.5,-0.51953 0.49609,-0.87891v-33c0.01172,-0.28906 -0.10547,-0.56641 -0.3125,-0.76172c-0.21094,-0.19922 -0.49609,-0.29687 -0.78125,-0.26953zM24.90625,9.96875c-0.04297,0.00781 -0.08594,0.01953 -0.125,0.03125c-0.46484,0.10547 -0.79297,0.52344 -0.78125,1v33c-0.00391,0.35938 0.18359,0.69531 0.49609,0.87891c0.3125,0.17969 0.69531,0.17969 1.00781,0c0.3125,-0.18359 0.5,-0.51953 0.49609,-0.87891v-33c0.01172,-0.28906 -0.10547,-0.56641 -0.3125,-0.76172c-0.21094,-0.19922 -0.49609,-0.29687 -0.78125,-0.26953zM30.90625,9.96875c-0.04297,0.00781 -0.08594,0.01953 -0.125,0.03125c-0.46484,0.10547 -0.79297,0.52344 -0.78125,1v33c-0.00391,0.35938 0.18359,0.69531 0.49609,0.87891c0.3125,0.17969 0.69531,0.17969 1.00781,0c0.3125,-0.18359 0.5,-0.51953 0.49609,-0.87891v-33c0.01172,-0.28906 -0.10547,-0.56641 -0.3125,-0.76172c-0.21094,-0.19922 -0.49609,-0.29687 -0.78125,-0.26953z"></path></g></g>
+          </svg>
+        </button>
+      </div>
+      <div>
+        <p>{{ store.invoiceBeneficiary()?.address?.street }}</p>
+        <p>{{ store.invoiceBeneficiary()?.address?.city }}  {{ store.invoiceBeneficiary()?.address?.zipCode }}</p>
+        <p>{{ store.invoiceBeneficiary()?.address?.country }}</p>
+      </div>
+    }
+    @else {
+      <div class="justify-center flex">
+        <h2>Select the beneficiary</h2>
+      </div>
+      <button (click)="toggleBeneficiaryModal()" class=" cursor-pointer rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+        Add Beneficiary
+      </button>
+      <p>Please select a beneficiary to generate the invoice.</p>
+    }
+    @if (isBeneficiaryModalOpen){
+      <app-modal [isOpen]="isBeneficiaryModalOpen">
+        <div class="w-full h-full flex justify-center items-center">
+          <app-card-component customClass="rounded-lg shadow-md p-8 flex-col w-xl gap-4 scrollbar" (click)="toggleBeneficiaryModal()">
+            <button class="self-end bg-white cursor-pointer w-min " (click)="toggleBeneficiaryModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="18" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+            </button>
+            <app-select-beneficiary />
+          </app-card-component>
+        </div>
+      </app-modal>
+    }
+  </div>
+</div>

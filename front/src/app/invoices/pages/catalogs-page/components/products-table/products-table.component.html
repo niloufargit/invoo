@@ -1,0 +1,149 @@
+<div class="w-full flex justify-between items-center mb-3 mt-1 pl-3">
+  <div>
+    <h3 class="text-lg font-bold text-slate-800">Manage your Products</h3>
+    <p class="text-slate-500">Overview of the products.</p>
+  </div>
+  <div class="ml-3">
+    <div class="w-full max-w-sm min-w-[200px] relative">
+      <div class="relative">
+        <input [(ngModel)]="searchKey"
+          class="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
+          placeholder="Search for product..."
+        />
+        <button
+          class="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded "
+          type="button"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-8 h-8 text-slate-600">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+  <table class="w-full text-left table-auto min-w-max">
+    <thead>
+    <tr>
+      <th class="p-4 border-b border-slate-300 bg-slate-50">
+        <p class="block text-sm font-normal leading-none text-slate-500">
+          Product name
+        </p>
+      </th>
+      <th class="p-4 border-b border-slate-300 bg-slate-50">
+        <p class="block text-sm font-normal leading-none text-slate-500">
+          Barcode
+        </p>
+      </th>
+      <th class="p-4 border-b border-slate-300 bg-slate-50">
+        <p class="block text-sm font-normal leading-none text-slate-500">
+          Description
+        </p>
+      </th>
+      <th class="p-4 border-b border-slate-300 bg-slate-50">
+        <p class="block text-sm font-normal leading-none text-slate-500">
+          Category
+        </p>
+      </th>
+      <th class="p-4 border-b border-slate-300 bg-slate-50">
+        <p class="block text-sm font-normal leading-none text-slate-500">
+          HT Price (€)
+        </p>
+      </th>
+      <th class="p-4 border-b border-slate-300 bg-slate-50">
+        <p class="block text-sm font-normal leading-none text-slate-500">
+          TVA (%)
+        </p>
+      </th>
+      <th class="p-4 border-b border-slate-300 bg-slate-50">
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+
+      @for (product of products; track $index) {
+        <tr class="hover:bg-slate-50 border-b border-slate-200">
+          <td class="p-4 py-5">
+            <p class="block font-semibold text-sm text-slate-800">{{ product?.name }}</p>
+          </td>
+          <td class="p-4 py-5">
+            <p class="block font-semibold text-sm text-slate-800">{{ product?.barcode }}</p>
+          </td>
+          <td class="p-4 py-5">
+            <p class="block font-semibold text-sm text-slate-800">{{ product?.description }}</p>
+          </td>
+          <td class="p-4 py-5">
+            <p class="block font-semibold text-sm text-slate-800">{{ store.getNameCategory(product.idCatalog, product.idCategory) }}</p>
+          </td>
+          <td class="p-4 py-5">
+            <p class="block font-semibold text-sm text-slate-800">{{ product?.htPrice }}</p>
+          </td>
+          <td class="p-4 py-5">
+            <p class="block font-semibold text-sm text-slate-800">{{ product?.vatRate }}</p>
+          </td>
+
+          <td class="p-4 py-5">
+              <button (click)="openEditProductModal(product)"
+                class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button">
+                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                       class="w-6 h-6">
+                    <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z"></path>
+                  </svg>
+                </span>
+              </button>
+            <button (click)="openDeleteProduct(product)"
+                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button">
+                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0,0,256,256"
+                       class="w-6 h-6">
+                    <g fill="#ff2929" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M21,0c-1.64453,0 -3,1.35547 -3,3v2h-7.8125c-0.125,-0.02344 -0.25,-0.02344 -0.375,0h-1.8125c-0.03125,0 -0.0625,0 -0.09375,0c-0.55078,0.02734 -0.98047,0.49609 -0.95312,1.04688c0.02734,0.55078 0.49609,0.98047 1.04688,0.95313h1.09375l3.59375,40.5c0.125,1.39844 1.31641,2.5 2.71875,2.5h19.1875c1.40234,0 2.59375,-1.10156 2.71875,-2.5l3.59375,-40.5h1.09375c0.35938,0.00391 0.69531,-0.18359 0.87891,-0.49609c0.17969,-0.3125 0.17969,-0.69531 0,-1.00781c-0.18359,-0.3125 -0.51953,-0.5 -0.87891,-0.49609h-10v-2c0,-1.64453 -1.35547,-3 -3,-3zM21,2h8c0.5625,0 1,0.4375 1,1v2h-10v-2c0,-0.5625 0.4375,-1 1,-1zM11.09375,7h27.8125l-3.59375,40.34375c-0.03125,0.34766 -0.40234,0.65625 -0.71875,0.65625h-19.1875c-0.31641,0 -0.6875,-0.30859 -0.71875,-0.65625zM18.90625,9.96875c-0.04297,0.00781 -0.08594,0.01953 -0.125,0.03125c-0.46484,0.10547 -0.79297,0.52344 -0.78125,1v33c-0.00391,0.35938 0.18359,0.69531 0.49609,0.87891c0.3125,0.17969 0.69531,0.17969 1.00781,0c0.3125,-0.18359 0.5,-0.51953 0.49609,-0.87891v-33c0.01172,-0.28906 -0.10547,-0.56641 -0.3125,-0.76172c-0.21094,-0.19922 -0.49609,-0.29687 -0.78125,-0.26953zM24.90625,9.96875c-0.04297,0.00781 -0.08594,0.01953 -0.125,0.03125c-0.46484,0.10547 -0.79297,0.52344 -0.78125,1v33c-0.00391,0.35938 0.18359,0.69531 0.49609,0.87891c0.3125,0.17969 0.69531,0.17969 1.00781,0c0.3125,-0.18359 0.5,-0.51953 0.49609,-0.87891v-33c0.01172,-0.28906 -0.10547,-0.56641 -0.3125,-0.76172c-0.21094,-0.19922 -0.49609,-0.29687 -0.78125,-0.26953zM30.90625,9.96875c-0.04297,0.00781 -0.08594,0.01953 -0.125,0.03125c-0.46484,0.10547 -0.79297,0.52344 -0.78125,1v33c-0.00391,0.35938 0.18359,0.69531 0.49609,0.87891c0.3125,0.17969 0.69531,0.17969 1.00781,0c0.3125,-0.18359 0.5,-0.51953 0.49609,-0.87891v-33c0.01172,-0.28906 -0.10547,-0.56641 -0.3125,-0.76172c-0.21094,-0.19922 -0.49609,-0.29687 -0.78125,-0.26953z"></path></g></g>
+                  </svg>
+                </span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (openEditProduct){
+    <app-modal [isOpen]="openEditProduct">
+      <div class="w-full h-full flex justify-center items-center">
+        <app-card-component customClass="rounded-lg shadow-md p-8 flex-col w-xl gap-4 scrollbar">
+          <button class="self-end bg-white cursor-pointer w-min " (click)="closeEditProductModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="18" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+          </button>
+          <app-edit-product [editedProduct]="selectedProduct()" />
+        </app-card-component>
+      </div>
+    </app-modal>
+  }
+
+  @if (productDeletedId() !== ''){
+    <app-modal [isOpen]="productDeletedId() !== ''">
+      <div class="w-full h-full flex justify-center items-center">
+        <app-card-component customClass="rounded-lg shadow-md p-8 flex-col w-xl gap-4 scrollbar">
+          <button class="self-end bg-white cursor-pointer w-min " (click)="closeDeleteProductModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="18" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+          </button>
+
+          <div class="flex flex-col gap-4 items-center">
+            <h2 class="text-lg font-bold text-slate-800">Delete Product</h2>
+            <p class="text-sm text-slate-500">Are you sure you want to delete this product?</p>
+            <button (click)="deleteProduct()"
+              class="cursor-pointer py-3 rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button" >
+              Delete product
+            </button>
+          </div>
+
+
+        </app-card-component>
+      </div>
+    </app-modal>
+  }
+</div>

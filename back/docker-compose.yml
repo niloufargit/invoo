@@ -1,0 +1,137 @@
+services:
+  invoo_orchestrator:
+    container_name: pg_orchestrator
+    image: postgres
+    environment:
+      POSTGRES_USER: invoo
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: orchestrator
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - invoo-net
+    restart: unless-stopped
+  
+  invoo_catalog:
+    container_name: pg_catalog
+    image: postgres
+    environment:
+      POSTGRES_USER: invoo
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: catalog
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - invoo-net
+    restart: unless-stopped
+  
+  invoo_payment:
+    container_name: pg_payment
+    image: postgres
+    environment:
+      POSTGRES_USER: invoo
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: payment
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5434:5432"
+    networks:
+      - invoo-net
+    restart: unless-stopped
+
+  invoo_invoice:
+    container_name: pg_invoice
+    image: postgres
+    environment:
+      POSTGRES_USER: invoo
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: invoice
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5435:5432"
+    networks:
+      - invoo-net
+    restart: unless-stopped
+  
+  invoo_notification:
+    container_name: mg_notification
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: invoo
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb2:/data/db
+    ports:
+      - "27018:27017"
+    networks:
+      - mongodb
+    restart: always
+  
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "22181:2181"
+    networks:
+      - invoo-net
+    restart: unless-stopped
+  
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    networks:
+      - invoo-net
+    restart: unless-stopped
+  
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    depends_on:
+      - kafka
+    ports:
+      - 8090:8080
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:22181
+  
+  invoo_mail-dev:
+    container_name: invoo-mail-dev
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+    restart: unless-stopped
+
+
+networks:
+  invoo-net:
+    driver: bridge
+  mongodb:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
+  mongodb1:
+  mongodb2:
